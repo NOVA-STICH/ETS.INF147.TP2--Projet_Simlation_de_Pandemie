@@ -114,7 +114,7 @@ int main(void) {
 	/*======================================*/
 	/*==IL FAUT GENERE LE PATIEN ZERO     ==*/
 	/*======================================*/
-
+	//DW
 
 	// Afficher les compteurs de depart:
 	afficher_infos(jours, nb_morts, nb_malades, lemax);
