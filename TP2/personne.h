@@ -1,7 +1,8 @@
+#pragma once
 /******************************************************************************/
 /* PERSONNE.H                                                                 */
 /* NOMS: Maxime Nebili + Guillaum Cadieux                                     */
-/*                                                                            */
+/* Date   : 12 Juillet 2025                                                   */
 /* Librairie de gestion des personnes.                                        */
 /******************************************************************************/
 #include "alea_pop.h"    //pour les fonctions aléatoires
@@ -25,6 +26,7 @@
 /* constantes relatives aux probabilités de décès selon l'age */
 #define AGE_JEUNE        29     //limite de la premiere tranche d'age
 #define INC_CAT_AGE      10     //écart entre chaque tranche d'age
+#define VITESSE          10      // Facteur de vitesse pour aller plus vite   :)
 
 /* prob. de décès selon l'age [0-29, 30-39, 40-49, 50-59, 60-69, 70-79, >=80] */
 const double PROB_DECES[7] = {0.001, 0.001, 0.004, 0.017, 0.059, 0.182, 0.736};

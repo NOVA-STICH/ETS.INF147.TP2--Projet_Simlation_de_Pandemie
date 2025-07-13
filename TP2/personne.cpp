@@ -4,7 +4,7 @@
 /*
  Module : personne.cpp
  Par    : Maxime Nebili + Guillaum Cadieux
- Date   : 7 Juillet 2025
+ Date   : 12 Juillet 2025
  Info	: Module qui consiste à faire les fonctions utilitaires des personnes.
 */
 /*=========================================================*/
@@ -31,8 +31,8 @@ t_personne init_personne(double px, double py, double prob_quar) {
 
     // Pour les variables de vitesses, on fait un comparaison avec un valeur 1/2 et
     // si elle est inferieur, alors on multiplie le resultat des angles avec celle si:
-    nouvelle_personne.vitx = (((RANDF < 0.5) ? -1 : 1) * (2 * cos(angle_radian)));
-    nouvelle_personne.vity = (((RANDF < 0.5) ? -1 : 1) * (2 * sin(angle_radian)));
+    nouvelle_personne.vitx = (((RANDF < 0.5) ? -1 : 1) * (VITESSE * cos(angle_radian)));
+    nouvelle_personne.vity = (((RANDF < 0.5) ? -1 : 1) * (VITESSE * sin(angle_radian)));
     nouvelle_personne.posx = px; // init sa position x
     nouvelle_personne.posy = py; // init sa position y
     nouvelle_personne.etat = EN_SANTE; // init son etat de sante
@@ -65,11 +65,8 @@ int determiner_mort(const t_personne* lui) {
     // Génère un réel aléatoire entre [0.0, 1.0] et si ce réel est inférieur
     // à (probabilité de décès de la personne / (son nombre d’infections + 1)),
     // on retourne 1 : 
-#if (MODE_MACRO == 1)
     return ((RANDF < (PROB_DECES[tranche] / (lui->nb_inf + 1))) ? 1:0);
-#else
-    return ((randf() < (PROB_DECES[tranche] / (lui->nb_inf + 1))) ? 1 : 0);
-#endif
+
 }
 
 // ==================================================================
@@ -128,18 +125,12 @@ void deplacer_personne(t_personne* lui, int largeur, int hauteur,
    PARAMÈTRES : *lui, *autre - pointeurs sur les 2 personnes (t_personne *).  */
 void inverser_dir_pers(t_personne* lui, t_personne* autre) {
 
-    double angle_radian = 0; // Variable qui vas contenir l'angle aleatoire.
-
-#if(MODE_MACRO == 1)
-    angle_radian = RANDF_BORNES(0.5, 1.5); // Generation de l'angle aleatoire
-#else
-    angle_radian = randf_bornes(0.5, 1.5); // Generation de l'angle aleatoire
-#endif
+    double angle_radian = RANDF_BORNES(0.5, 1.5); // Generation de l'angle aleatoire
 
     // Pour les variables de vitesses, on fait un comparaison avec un valeur 1/2 et
     // si elle est inferieur, alors on multiplie le resultat des angles avec celle si:
-    lui->vitx = (((randf() < 0.5) ? -1 : 1) * (2 * cos(angle_radian)));
-    lui->vity = (((randf() < 0.5) ? -1 : 1) * (2 * sin(angle_radian)));
+    lui->vitx = (((randf() < 0.5) ? -1 : 1) * (VITESSE * cos(angle_radian)));
+    lui->vity = (((randf() < 0.5) ? -1 : 1) * (VITESSE * sin(angle_radian)));
     
     // Pour la deuxieme personne, on copie la vitesse de la personne 1 et on l'inverse:
     autre->vitx = (-1 * lui->vitx);
@@ -158,6 +149,7 @@ void inverser_dir_pers(t_personne* lui, t_personne* autre) {
                 mode_quar - le mode de quarantaine de la personne (booléen, 0 ou 1). */
 void modifier_etat_pers(t_personne* lui, t_etat etat, int mode_quar) {
     lui->etat = etat;        // transfert de l'etat de la personne
+    lui->quarantaine = ((mode_quar) ? 1 : 0);
     if (etat == EN_SANTE) {  // si sont etat est "EN_SANTE" alors:
         lui->prob_inf /= 3;  // diviser sa probabilité d’infection par trois
         lui->nb_inf++;       // incrementer le nombre d'infection
@@ -207,6 +199,7 @@ double get_prob_inf(const t_personne* lui) {
    PARAMÈTRES : *lui - pointeur sur une personne (t_personne).
    RETOUR : l'état de quarantaine de la personne (booléen, 0 ou 1).   */
 int get_quarantaine(const t_personne* lui) {
+    if (lui == NULL) return 0;
     return lui->quarantaine;
 }
 

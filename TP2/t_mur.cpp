@@ -1,7 +1,7 @@
 /******************************************************************************/
 /* t_mur.H																      */
 /* NOMS: Maxime Nebili + Guillaum Cadieux                                     */
-/*                                                                            */
+/* Date   : 12 Juillet 2025                                                   */
 /* CPP de gestion du mur.													  */
 /******************************************************************************/
 
@@ -13,7 +13,7 @@
 // reçues et retourne ce nouveau mur ainsi crée.
 t_mur init_mur(int pos_mur, int longueur) {
 	t_mur mur = {0}; // Met tout les parametre a zero initalement
-	mur.longueur = longueur ;
+	mur.longueur = (longueur) ;
 	mur.pos_mur = pos_mur;
 	return mur;
 }

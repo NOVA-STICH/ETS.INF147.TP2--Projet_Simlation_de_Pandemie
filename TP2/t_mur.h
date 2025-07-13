@@ -1,7 +1,8 @@
 #pragma once
 /******************************************************************************/
 /* t_mur.H																	  */
-/* NOMS: Maxime Nebili + Guillaum Cadieux                                     */
+/* NOMS: Maxime Nebili + Guillaum Cadieux									  */
+/* Date   : 12 Juillet 2025													  */
 /* Librairie de gestion du mur.												  */
 /******************************************************************************/
 
@@ -40,6 +41,6 @@ bool mur_actif(t_mur *mur);
 // dessiner_mur(..) : Reçoit un mur par référence(t_mur*) et dessine le mur à l'écran
 // (pour le mode AVEC affichages).Utilisez ici la fonction 
 // « afficher_mur() » du module « utilitaires_affichage ».
-void dessiner_mur(const t_mur *mur);\
+void dessiner_mur(const t_mur *mur);
 
 
