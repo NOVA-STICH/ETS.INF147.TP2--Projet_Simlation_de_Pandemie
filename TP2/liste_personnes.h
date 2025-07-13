@@ -21,7 +21,7 @@
 /*                         DÉCLARATIONS DE TYPES                              */
 /******************************************************************************/
 typedef struct {
-	t_personne* liste; //tableau statique des personnes
+	t_personne* liste; //tableau dynamique des personnes
 	int taille; //la taille du tableau
 	int nb_pers; //nombre de personnes non-mortes dans la liste
 	int nb_malades; //le nombre de malades

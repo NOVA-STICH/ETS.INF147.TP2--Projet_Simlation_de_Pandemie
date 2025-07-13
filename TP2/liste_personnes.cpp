@@ -62,6 +62,13 @@ void int_liste_personnes(t_liste_personnes* liste_pers, int nbr_personne, double
 
 // Vide la liste de personne
 void vider_liste_personnne(t_liste_personnes* liste_pers) {
+	printf("DEBUG - liste_pers: %p\n", (void*)liste_pers);
+	printf("DEBUG - liste_pers->liste: %p\n", (void*)liste_pers->liste);
+	printf("DEBUG - taille: %d\n", liste_pers->taille);
+	if (liste_pers->liste != NULL) {
+		free(liste_pers->liste);       // libération du tableau dynamique
+		liste_pers->liste = NULL;
+	}
 	liste_pers->taille = 0;
 	liste_pers->nb_pers = 0;
 	liste_pers->nb_malades = 0;
@@ -166,7 +173,7 @@ void imprimer_pers(t_liste_personnes* liste_pers) {
 		else if ((etat == MALADE) && (quar == 0)) couleur = RED;
 		else if ((etat == MALADE) && (quar == 1)) couleur = BLUE;
 		
-		afficher_cercle(px, py, couleur);
+		afficher_cercle(round(px), round(py), couleur);
 	}
 }
 

@@ -70,7 +70,7 @@ int main(void) { // CODE avec afficahge (900 personne max):
 
 	// === TYPE DEF ===
 	t_mur mur = { 0 }; //cree un type mur avec 0 comme parametre
-	t_liste_personnes liste_pers; // Liste de personne
+	t_liste_personnes liste_pers = {0}; // Liste de personne
 
 	// Initialise le mur si l'utilisateur le veuille:
 	printf("Voulez-vous une simulation avec un mur(0/1)?");
