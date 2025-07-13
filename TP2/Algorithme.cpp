@@ -8,7 +8,8 @@
  Info	: Module qui consiste à faire des simulations de pandemi.
 */
 /*=========================================================*/
-
+// Directive qui permet de désactiver certains warnings de Visual-Studio
+#define _CRT_SECURE_NO_WARNINGS
 
 /*=========================================================*/
 // Librairies usuelles à inclure:
@@ -23,17 +24,14 @@
 #include"liste_personnes.h"
 
 /*===================== CONSTANTES =======================*/
-// Directive qui permet de désactiver certains warnings de Visual-Studio
-#define _CRT_SECURE_NO_WARNINGS
-
 // Dimensions de l'écran d'affichage (en pixels) selon le FACTEUR du nombre de personnes
 #define HAUTEUR (int)( 1000 * sqrt(0.8 * FACTEUR))		// default: 550
 #define LARGEUR (int)( 2000 * sqrt(0.8 * FACTEUR))		// default: 1200
 
 #define MODE_AFFICHAGE 0	// Simuler avec l’affichage (1) ou avec logfile(0)
 
-#define NB_JOURS_SIMULATION 400 // Le NB de jours a simuler pour le log file
-#define NOM_FICHIER	"logfile.c" // Le nom du ficher cree
+#define NB_JOURS_SIMULATION 100 // Le NB de jours a simuler pour le log file
+#define NOM_FICHIER	"logfile.txt" // Le nom du ficher cree
 
 
 /*===================== MACRO =======================*/
@@ -206,15 +204,17 @@ int main(void) { // CODE sans affichage (1500 personne max) + logfile:
 	// Initialise le mur si l'utilisateur le veuille:
 	printf("Voulez-vous une simulation avec un mur(0/1)?");
 	scanf("%d", &mode_mur);
-	FFLUSH();	
-	if(mode_mur) mur = init_mur(LARGEUR / 2, HAUTEUR);
+	FFLUSH();
+	if (mode_mur) mur = init_mur(LARGEUR / 2, HAUTEUR);
 
 	// On ouvre/cree le fichier en mode ecriture texte (Write Text) et on verifie:
+	printf("Creation du ficher\n"); // --- DEBUG ---
 	if ((fichier = fopen(NOM_FICHIER, "wt")) == NULL) {
 		printf("Impossible de creer le fichier %s.\n", NOM_FICHIER);
 		return EXIT_FAILURE;
 	}
-	
+	printf("NOM du ficher: %s \n", NOM_FICHIER);// --- DEBUG ---
+
 	// On vide la liste:
 	vider_liste_personnne(&liste_pers);
 	// On initialise des valeurs dans la liste:
@@ -224,6 +224,7 @@ int main(void) { // CODE sans affichage (1500 personne max) + logfile:
 	patient_zero(&liste_pers);
 
 	// Ecriture dans le ficher -> Les Titre 
+	printf("Ecriture dans le ficher -> Les Titre\n");// --- DEBUG ---
 	fprintf(fichier, "JOUR POPU MORTS SANTE MALADES MAX\n");
 	
 	// ---------------------------------- LOOP ------------------------------------------
@@ -245,7 +246,8 @@ int main(void) { // CODE sans affichage (1500 personne max) + logfile:
 		// Si le NB d’heures écoulé est un multiple de 24:
 		if ((nb_heure_simulation % 24) == 0) {
 			jours++; // Vue que ca fait 24h, donc une journnée c'est écoulé
-			// Ecriture dans le ficher -> Les Donnees: 
+			// Ecriture dans le ficher -> Les Donnees:
+			printf("Ecriture dans le ficher -> Les Donnees\n");// --- DEBUG ---
 			fprintf(fichier, "%4d %4d %5d %5d %7d %3d\n",
 				jours, population, nb_morts, nb_sante, nb_malades, lemax);
 		}
@@ -254,8 +256,9 @@ int main(void) { // CODE sans affichage (1500 personne max) + logfile:
 	
 	// Derniere ligne du logfile:
 	// Calcule de la moyenne et impresion des donnees:
-	double moyenne = nb_moyen_inf(&liste_pers, &max_inf, &jamais_infectes);
-	fprintf(fichier, "\nNB. MOYEN d'INFECTIONS: %.2f (Max. %d, Jamais = %d)\n",
+	printf("Ecriture dans le ficher -> derniere ligne\n");// --- DEBUG ---
+	moyenne = nb_moyen_inf(&liste_pers, &max_inf, &jamais_infectes);
+	fprintf(fichier, "\nNB. MOYEN d'INFECTIONS: %.3f (Max. %d, Jamais_infecter = %d)\n",
 			moyenne, max_inf, jamais_infectes);
 	
 	// On ferme le fichier:
@@ -269,13 +272,3 @@ int main(void) { // CODE sans affichage (1500 personne max) + logfile:
 	return EXIT_SUCCESS;
 }
 #endif
-
-/*
-	// Debug: (affichage du tableau):
-	printf("\n ----- Valeur dans le tableau ----- \n\n");
-	printf(" %10d ", liste_pers.liste[0].quarantaine);
-	for (int i = 1; i < 900; i++) {
-		if ((i % 100 == 0))  printf("\n");
-		printf(" %10d ", liste_pers.liste[i].quarantaine);
-	}printf("\n\n");
-*/
