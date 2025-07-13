@@ -62,9 +62,6 @@ void int_liste_personnes(t_liste_personnes* liste_pers, int nbr_personne, double
 
 // Vide la liste de personne
 void vider_liste_personnne(t_liste_personnes* liste_pers) {
-	printf("DEBUG - liste_pers: %p\n", (void*)liste_pers);
-	printf("DEBUG - liste_pers->liste: %p\n", (void*)liste_pers->liste);
-	printf("DEBUG - taille: %d\n", liste_pers->taille);
 	if (liste_pers->liste != NULL) {
 		free(liste_pers->liste);       // libération du tableau dynamique
 		liste_pers->liste = NULL;
@@ -204,9 +201,9 @@ static void verif_contac_pers(t_liste_personnes* liste_pers, t_personne* traiter
 		copie = (px1 == px2 && py1 == py2) && (liste_pers->liste[i].age == traiter->age) &&
 			liste_pers->liste[i].nb_inf == traiter->nb_inf;
 
-		//vérifie que ça ne soit pas la même personne et vérifie les contacts entre les 2
+		// vérifie que ça ne soit pas la même personne et vérifie les contacts entre les 2
 		if(!copie && contact_personnes(traiter, px1, py1)){
-			//si le traiter est malade et que l'autre est en sante
+			// si le traiter est malade et que l'autre est en sante
 			if((etat1 == EN_SANTE) && (etat2 == MALADE)){
 
 				if(RANDF< prob_inf1){
@@ -217,7 +214,7 @@ static void verif_contac_pers(t_liste_personnes* liste_pers, t_personne* traiter
 					liste_pers->liste[i].nb_inf++;
 				}
 			}
-			//si l'autre est malade et que le traiter est en sante
+			// si l'autre est malade et que le traiter est en sante
 			else if((etat1 == MALADE) && (etat2 == EN_SANTE)){
 				if(RANDF< prob_inf2){
 					modifier_etat_pers(traiter, MALADE, ((RANDF < prob_quar) ? 1 : 0));
