@@ -14,7 +14,7 @@
 // ==================================================================
 
 //Créer une liste de personne avec une position aléatoire
-void int_liste_personnes(t_liste_personnes* liste_pers, int nbr_personne, double prob_quar,
+void init_liste_personnes(t_liste_personnes* liste_pers, int nbr_personne, double prob_quar,
 						 int hauteur, int largeur, int mode_mur, const t_mur* mur) {
 	//Variable:
 	int i, j, col = 0, col_mur = 0;
@@ -112,7 +112,7 @@ void patient_mort(t_liste_personnes* liste_pers, int pos_mort) {
 /*Déplace toute personne vivante et pas en quarantaine, si la personne est malade
 *on rajoute de l'heure malade, s'il atteint le nombre d'heure maximum on valide si
 elle meurt ou non, si la personne ne meurt par elle retourne EN_SANTE*/
-int traitemnt(t_liste_personnes* liste_pers, double prob_quar,
+int traitement(t_liste_personnes* liste_pers, double prob_quar,
 	int hauteur, int largeur, int mode_mur, const t_mur *mur) {
 	
 	// Variables:
