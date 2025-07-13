@@ -201,7 +201,7 @@ int main(void) { // CODE sans affichage (1500 personnes max) + logfile:
 	printf("Voulez-vous une simulation avec un mur(0/1)?");
 	scanf("%d", &mode_mur);
 	FFLUSH();
-	if (mode_mur) mur = init_mur(LARGEUR / 2, HAUTEUR);
+	if (mode_mur) mur = init_mur(LARGEUR / 2, HAUTEUR); 
 
 	// On ouvre/crée le fichier en mode écriture texte (Write Text) et on vérifie:
 	printf("Creation du fichier\n"); // --- DEBUG ---
