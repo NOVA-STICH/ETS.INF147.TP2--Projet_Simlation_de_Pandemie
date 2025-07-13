@@ -5,7 +5,7 @@
 /* Date   : 12 Juillet 2025													  */
 /* Librairie de gestion du mur.												  */
 /******************************************************************************/
-
+#include <math.h>
 #include"utilitaire_affichage.h"
 // Directive qui permet de désactiver certains warnings de Visual-Studio
 #define _CRT_SECURE_NO_WARNINGS

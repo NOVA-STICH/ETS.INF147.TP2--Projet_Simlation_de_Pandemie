@@ -107,7 +107,8 @@ int main(void) { // CODE avec afficahge (900 personne max):
 	if (mode_mur) dessiner_mur(&mur);
 	
 	// Pause, on attent le saisie d'une touche:
-	while (touche == NULL) if (touche_pesee()) touche = obtenir_touche();
+	while (touche_pesee() == 0);
+	//while (touche == NULL) if (touche_pesee()) touche = obtenir_touche();
 
 	
 	// loop TANT QUE:  NB de malades > 0 ET que la touche pesée n’est pas ESC (= 27).
@@ -121,8 +122,7 @@ int main(void) { // CODE avec afficahge (900 personne max):
 		nb_heure_simulation++;
 		// Si mode_mur = 1 ET ca fait 24h, on vérifie si le mur est encore actif:
 		if (mode_mur && (nb_heure_simulation % 24 == 0)) mode_mur = mur_actif(&mur);
-		printf("mode_mur: %d", mode_mur);
-
+		
 		// Traiter toutes les personnes
 		nb_malades = traitemnt(&liste_pers, prop_quarantaine,
 								HAUTEUR, LARGEUR, mode_mur, &mur);

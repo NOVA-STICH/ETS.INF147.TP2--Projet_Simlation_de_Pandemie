@@ -23,7 +23,7 @@ t_mur init_mur(int pos_mur, int longueur) {
 // d’une personne(un réel). La fonction vérifie si cette position est à moins de DIST_MUR
 // pixels(distance absolue) et retourne 1 si c’est le cas, 0 sinon.
 bool contact_mur(const t_mur *mur, double pos_personne) {
-	return (((mur->pos_mur - pos_personne) < DIST_MUR) ? 1 : 0);
+	return ((fabs(mur->pos_mur - pos_personne) < DIST_MUR) ? 1 : 0);
 }
 
 //=======================================================================================
