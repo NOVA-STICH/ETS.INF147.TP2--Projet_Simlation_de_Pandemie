@@ -153,8 +153,8 @@ int main(void) { // CODE avec afficahge (900 personne max):
 		// on affiche une barre du graphique de progression:
 		if ((nb_heure_simulation % 4) == 0) {
 			afficher_graphe((nb_heure_simulation / 4),
-							(double)(nb_malades / max_pers_dep),
-							(double)(liste_pers.nb_sante / max_pers_dep));
+							(double)nb_malades / max_pers_dep,
+							(double)liste_pers.nb_sante / max_pers_dep);
 		}
 
 		// Si il y a saisie d'une touche, on la met en memoire:
