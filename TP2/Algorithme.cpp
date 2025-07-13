@@ -30,7 +30,7 @@
 #define HAUTEUR (int)( 1000 * sqrt(0.8 * FACTEUR))		// default: 550
 #define LARGEUR (int)( 2000 * sqrt(0.8 * FACTEUR))		// default: 1200
 
-#define MODE_AFFICHAGE 1	// Simuler avec l’affichage des gens
+#define MODE_AFFICHAGE 1	// Simuler avec l’affichage (1) ou avec logfile(0)
 
 #define NB_JOURS_SIMULATION 400 // Le NB de jours a simuler pour le log file
 #define NOM_FICHIER	"logfile.c" // Le nom du ficher cree
@@ -56,17 +56,16 @@ int main(void) { // CODE avec afficahge (900 personne max):
 
 	// VARIABLES:
 	int max_pers_dep = 900, // Le NB maxiamle de personne en deplacement
-		i = 0,			// Variable pour la boucle FOR
 		jours = 0,		// NB de jours ecoule
 		nb_morts = 0,	// NB de mort
 		nb_malades = 0,	// NB de malade
 		lemax = 0,		// NB maximal de malade
 		touche = NULL,	// Variable que contien la touche pesée
 		nb_heure_simulation = 0,	// Auto-explicatoire
-		mode_mur = 0; // Selection du mode avec ou sans mur
+		mode_mur = 0; // Selection du mode avec(1) ou sans(0) mur
 
 	// Generation de la prop_quarantaine
-	double prop_quarantaine = RANDF;
+	double prop_quarantaine = 0.1;//RANDF;
 
 	// === TYPE DEF ===
 	t_mur mur = { 0 }; //cree un type mur avec 0 comme parametre
@@ -85,9 +84,9 @@ int main(void) { // CODE avec afficahge (900 personne max):
 	init_graphe(LARGEUR, HAUTEUR);
 	init_zone_environnement(LARGEUR, HAUTEUR);
 
-	// Vidage de la liste et creation dune nouvelle:
+	// Vidage de la liste
 	vider_liste_personnne(&liste_pers);
-
+	// Creation d'une liste avec valeur:
 	int_liste_personnes(&liste_pers, max_pers_dep, prop_quarantaine,
 						HAUTEUR, LARGEUR, mode_mur, &mur);
 
@@ -111,24 +110,29 @@ int main(void) { // CODE avec afficahge (900 personne max):
 	//while (touche == NULL) if (touche_pesee()) touche = obtenir_touche();
 
 	
-	// loop TANT QUE:  NB de malades > 0 ET que la touche pesée n’est pas ESC (= 27).
+	// loop TANT QUE: le NB de malades > 0 ET que la touche pesée n’est pas ESC (= 27).
 	do {
 		// ======= debuggage ==========
-		printf("heure: %d   nb_personne: %d   nb_mort: %d   nb_Malade: %d   nb_sante: %d    \n",
-			nb_heure_simulation, liste_pers.nb_pers, liste_pers.nb_morts, liste_pers.nb_malades, liste_pers.nb_sante);
+		printf("heure:%6d  |", nb_heure_simulation);
+		printf("nb_personne:%4d  |", liste_pers.nb_pers);
+		printf("nb_mort:%6d  |", liste_pers.nb_morts);
+		printf("nb_Malade:%6d  |", liste_pers.nb_malades);
+		printf("nb_sante:%6d  |", liste_pers.nb_sante);
+		printf("\n");// saute a la ligne
 		// ======= debuggage ==========
 		
 		// On incremente le compteur d'heures:
 		nb_heure_simulation++;
+
 		// Si mode_mur = 1 ET ca fait 24h, on vérifie si le mur est encore actif:
 		if (mode_mur && (nb_heure_simulation % 24 == 0)) mode_mur = mur_actif(&mur);
 		
-		// Traiter toutes les personnes
+		// Obtenir le nombre de morts dans la liste de personnes:
+		nb_morts = get_nb_morts(&liste_pers);
+		// Traiter toutes les personnes:
 		nb_malades = traitemnt(&liste_pers, prop_quarantaine,
 								HAUTEUR, LARGEUR, mode_mur, &mur);
 		
-		nb_morts = get_nb_morts(&liste_pers);
-
 		// Ajuster le nombre maximal de malades si c’est le cas
 		if (nb_malades > lemax) lemax = nb_malades;
 		
@@ -139,9 +143,9 @@ int main(void) { // CODE avec afficahge (900 personne max):
 		// si le mur est toujours actif, on l'affiche:
 		if (mode_mur) dessiner_mur(&mur);
 
-
 		// crée un léger délais:
-		// delai_ecran(30 / FACTEUR);
+		//delai_ecran(30 / FACTEUR);
+
 
 		// Si le NB d’heures écoulé est un multiple de 24:
 		if ((nb_heure_simulation % 24) == 0) {
@@ -150,7 +154,7 @@ int main(void) { // CODE avec afficahge (900 personne max):
 		}
 
 		// Si le NB d’heures écoulé est un multiple de 4, alors
-		// on affiche une barre du graphique de progression:
+		// on affiche une barre du graphique pour la progression:
 		if ((nb_heure_simulation % 4) == 0) {
 			afficher_graphe((nb_heure_simulation / 4),
 							(double)nb_malades / max_pers_dep,

@@ -33,13 +33,13 @@ t_personne init_personne(double px, double py, double prob_quar) {
     // si elle est inferieur, alors on multiplie le resultat des angles avec celle si:
     nouvelle_personne.vitx = (((RANDF < 0.5) ? -1 : 1) * (VITESSE * cos(angle_radian)));
     nouvelle_personne.vity = (((RANDF < 0.5) ? -1 : 1) * (VITESSE * sin(angle_radian)));
-    nouvelle_personne.posx = px; // init sa position x
-    nouvelle_personne.posy = py; // init sa position y
-    nouvelle_personne.etat = EN_SANTE; // init son etat de sante
-    nouvelle_personne.age = rand_age_canada(); // init son age
-    nouvelle_personne.prob_inf = PROB_CONTAGION; // init la probabiliter de contagion
-    nouvelle_personne.hrs_malade = 0; // init les nb d'heures
-    nouvelle_personne.nb_inf = 0; // init les nb d'infections
+    nouvelle_personne.posx = px;                    // init sa position x
+    nouvelle_personne.posy = py;                    // init sa position y
+    nouvelle_personne.etat = EN_SANTE;              // init son etat de sante
+    nouvelle_personne.age = rand_age_canada();      // init son age
+    nouvelle_personne.prob_inf = PROB_CONTAGION;    // init la probabiliter de contagion
+    nouvelle_personne.hrs_malade = 0;               // init les nb d'heures
+    nouvelle_personne.nb_inf = 0;                   // init les nb d'infections
     
     return nouvelle_personne;
 }

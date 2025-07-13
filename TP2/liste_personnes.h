@@ -15,7 +15,6 @@
 /******************************************************************************/
 
 #define FACTEUR 1 //facteur multiplicatif du nombre de personnes (1 à 5)
-#define MAX_PERS (300 * FACTEUR) //nombre initial de personnes (300, 600, …, 1500)
 
 /******************************************************************************/
 /*                         DÉCLARATIONS DE TYPES                              */

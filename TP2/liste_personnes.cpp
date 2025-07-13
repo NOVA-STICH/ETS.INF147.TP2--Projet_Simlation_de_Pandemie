@@ -117,11 +117,12 @@ void patient_mort(t_liste_personnes* liste_pers, int pos_mort) {
 elle meurt ou non, si la personne ne meurt par elle retourne EN_SANTE*/
 int traitemnt(t_liste_personnes* liste_pers, double prob_quar,
 	int hauteur, int largeur, int mode_mur, const t_mur *mur) {
-	int i, j;
-	int nb_vivant = liste_pers->taille - liste_pers->nb_morts;
+	
+	// Variables:
+	int i, nb_vivant = (liste_pers->taille - liste_pers->nb_morts);
 	double px = 0.0, py = 0.0;
 
-	//Boucle pour toute les personnes vivantes
+	//Boucle pour toute les personnes vivantes:
 	for (i = 0;i < nb_vivant; i++) {
 		//On regarde si la personne est en quarantaine
 		if (!(get_quarantaine(&liste_pers->liste[i]))) {
@@ -158,11 +159,11 @@ int traitemnt(t_liste_personnes* liste_pers, double prob_quar,
 //Dessine les personnes sur l'écran
 void imprimer_pers(t_liste_personnes* liste_pers) {
 	int i;
-	int nb_vivant = (liste_pers->taille - liste_pers->nb_morts);
+	//int nb_vivant = (liste_pers->taille - liste_pers->nb_morts);
 	double px = 0.0,  py = 0.0;
 	int etat = 0, quar = 0, couleur = 0;
-
-	for (i = 0;i < nb_vivant; i++) {
+	
+	for (i = 0;i < liste_pers->taille; i++) {
 		//Prend l'état et la position de la personne
 		etat = get_etat(&liste_pers->liste[i]);
 		quar = get_quarantaine(&liste_pers->liste[i]);
@@ -172,6 +173,7 @@ void imprimer_pers(t_liste_personnes* liste_pers) {
 		if (etat == EN_SANTE) couleur = GREEN;
 		else if ((etat == MALADE) && (quar == 0)) couleur = RED;
 		else if ((etat == MALADE) && (quar == 1)) couleur = BLUE;
+		else if (etat == MORT) couleur = YELLOW;
 		
 		afficher_cercle(round(px), round(py), couleur);
 	}
@@ -180,17 +182,16 @@ void imprimer_pers(t_liste_personnes* liste_pers) {
 //fonction qui gère la propagation de la maladie au contact
 static void verif_contac_pers(t_liste_personnes* liste_pers, t_personne* traiter, double prob_quar,
 	int hauteur, int largeur, int mode_mur, const t_mur* mur){
-	int i, nb_pers = 0, etat1 = 0, etat2 = 0;
+	int i, nb_pers = 0, etat1 = 0, etat2 = 0, copie = 0;
 	double px1 = 0.0, py1 = 0.0, px2 = 0.0, py2 = 0.0, prob_inf1, prob_inf2;
 
-	// l'état de la personne traiter
-	etat2 = get_etat(traiter);
-	//probabiliter d'infection du traiter
-	prob_inf2 = get_prob_inf(traiter);
-	//position du traiter
-	get_pos_personne(traiter, &px2, &py2);
-
 	for (i = 0; i < (get_nb_personnes(liste_pers)); i++) {
+		// l'état de la personne traiter
+		etat2 = get_etat(traiter);
+		//probabiliter d'infection du traiter
+		prob_inf2 = get_prob_inf(traiter);
+		//position du traiter
+		get_pos_personne(traiter, &px2, &py2);
 
 		//etat de l'autre personne
 		etat1 = get_etat(&liste_pers->liste[i]);
@@ -199,8 +200,12 @@ static void verif_contac_pers(t_liste_personnes* liste_pers, t_personne* traiter
 		//position de l'autre personne
 		get_pos_personne(&liste_pers->liste[i], &px1, &py1);
 
+		//même personne ou pas? who knows, even the code doesn't know, so how could we, its not a missile 
+		copie = (px1 == px2 && py1 == py2) && (liste_pers->liste[i].age == traiter->age) &&
+			liste_pers->liste[i].nb_inf == traiter->nb_inf;
+
 		//vérifie que ça ne soit pas la même personne et vérifie les contacts entre les 2
-		if((fabs(px1 - px2) > EPSILON && fabs(py1 - py2) > EPSILON) && contact_personnes(traiter, px1, py1)){
+		if(!copie && contact_personnes(traiter, px1, py1)){
 			//si le traiter est malade et que l'autre est en sante
 			if((etat1 == EN_SANTE) && (etat2 == MALADE)){
 
