@@ -27,8 +27,8 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 // Dimensions de l'écran d'affichage (en pixels) selon le FACTEUR du nombre de personnes
-#define HAUTEUR (int)( 550 * sqrt(0.8 * FACTEUR))
-#define LARGEUR (int)( 1200 * sqrt(0.8 * FACTEUR))
+#define HAUTEUR (int)( 1000 * sqrt(0.8 * FACTEUR))		// default: 550
+#define LARGEUR (int)( 2000 * sqrt(0.8 * FACTEUR))		// default: 1200
 
 #define MODE_AFFICHAGE 1	// Simuler avec l’affichage des gens
 
@@ -141,7 +141,7 @@ int main(void) { // CODE avec afficahge (900 personne max):
 
 
 		// crée un léger délais:
-		delai_ecran(30 / FACTEUR);
+		// delai_ecran(30 / FACTEUR);
 
 		// Si le NB d’heures écoulé est un multiple de 24:
 		if ((nb_heure_simulation % 24) == 0) {
