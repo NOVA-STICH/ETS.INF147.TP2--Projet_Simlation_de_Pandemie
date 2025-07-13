@@ -21,15 +21,10 @@ void init_liste_personnes(t_liste_personnes* liste_pers, int nbr_personne,
 	int i, j, col = 0, col_mur = 0;
 	double px = 0.0, py = 0.0;
 
-	// Vérification des paramètres d'entrée :
-	if (liste_pers == NULL || nbr_personne <= 0) {
-		printf("Paramètres invalides pour init_liste_personnes()\n");
-		return;
-	}
 	// Allocation mémoire pour la liste (tableau dynamique) :
 	liste_pers->liste = (t_personne*)malloc(nbr_personne * sizeof(t_personne));
-	if (liste_pers->liste == NULL) printf("Erreur d'allocation de mémoire");
-
+	assert(liste_pers->liste);
+	
 	// Initialisation des valeurs :
 	liste_pers->taille = nbr_personne;
 	liste_pers->nb_pers = nbr_personne;

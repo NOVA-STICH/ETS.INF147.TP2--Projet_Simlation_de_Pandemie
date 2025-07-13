@@ -28,7 +28,7 @@
 #define HAUTEUR (int)( 1000 * sqrt(0.8 * FACTEUR))		// default: 550
 #define LARGEUR (int)( 2000 * sqrt(0.8 * FACTEUR))		// default: 1200
 
-#define MODE_AFFICHAGE 0	// Simuler avec l'affichage (1) ou avec logfile(0)
+#define MODE_AFFICHAGE 1	// Simuler avec l'affichage (1) ou avec logfile(0)
 
 #define NB_JOURS_SIMULATION 100 // Le NB de jours à simuler pour le log file
 #define NOM_FICHIER	"logfile.txt" // Le nom du fichier créé
@@ -62,7 +62,7 @@ int main(void) { // CODE avec affichage (900 personnes max):
 		mode_mur = 0; // Sélection du mode avec(1) ou sans(0) mur
 
 	// Génération de la prop_quarantaine
-	double prop_quarantaine = RANDF;
+	double prop_quarantaine = 0.1; //RANDF;
 
 	// === TYPE DEF ===
 	t_mur mur = { 0 }; //crée un type mur avec 0 comme paramètre
@@ -70,7 +70,7 @@ int main(void) { // CODE avec affichage (900 personnes max):
 
 	// Initialise le mur si l'utilisateur le souhaite:
 	printf("Voulez-vous une simulation avec un mur(0/1)?");
-	scanf_s("%d", &mode_mur, sizeof(mode_mur));
+	scanf("%d", &mode_mur);
 	FFLUSH();
 	if (mode_mur) mur = init_mur(LARGEUR / 2, HAUTEUR);
 
@@ -128,7 +128,7 @@ int main(void) { // CODE avec affichage (900 personnes max):
 		if (mode_mur) dessiner_mur(&mur);
 
 		// crée un léger délai:
-		//delai_ecran(30 / FACTEUR);
+		delai_ecran(3 / FACTEUR);
 
 		// Si le NB d'heures écoulées est un multiple de 24:
 		if ((nb_heure_simulation % 24) == 0) {
@@ -254,7 +254,7 @@ int main(void) { // CODE sans affichage (1500 personnes max) + logfile:
 	// Calcul de la moyenne et impression des données:
 	printf("Ecriture dans le fichier -> dernière ligne\n");// --- DEBUG ---
 	moyenne = nb_moyen_inf(&liste_pers, &max_inf, &jamais_infectes);
-	fprintf(fichier, "\nNB. MOYEN d'INFECTIONS: %.3f (Max. %d, Jamais_infectées = %d)\n",
+	fprintf(fichier, "\nNB. MOYEN d'INFECTIONS: %.2f (Max. %d, Jamais_infectées = %d)\n",
 		moyenne, max_inf, jamais_infectes);
 
 	// On ferme le fichier:

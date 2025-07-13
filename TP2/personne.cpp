@@ -86,6 +86,24 @@ void deplacer_personne(t_personne* lui, int largeur, int hauteur,
     }
 }
 
+// ==================================================================
+// Reçoit deux personnes et les déplacent dans deux directions opposées suite
+
+void inverser_dir_pers(t_personne* lui, t_personne* autre) {
+
+    double angle_radian = RANDF_BORNES(0.5, 1.5); // Generation de l'angle aleatoire
+
+    // Pour les variables de vitesses, on fait un comparaison avec un valeur 1/2 et
+    // si elle est inferieur, alors on multiplie le resultat des angles avec celle si:
+    lui->vitx = (((randf() < 0.5) ? -1 : 1) * (VITESSE * cos(angle_radian)));
+    lui->vity = (((randf() < 0.5) ? -1 : 1) * (VITESSE * sin(angle_radian)));
+
+    // Pour la deuxieme personne, on copie la vitesse de la personne 1 et on l'inverse:
+    autre->vitx = (-1 * lui->vitx);
+    autre->vity = (-1 * lui->vitx);
+}
+
+
 // ======================================================================================
 // Modifie l'état et les propriétés d'une personne:
 void modifier_etat_pers(t_personne* lui, t_etat etat, int mode_quar) {
