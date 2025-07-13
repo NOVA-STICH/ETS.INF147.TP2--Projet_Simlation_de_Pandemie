@@ -3,7 +3,7 @@
 /*
  Module : liste_personnes.h
  Par    : Maxime Nebili + Guillaume Cadieux
- Date   : 12 Juillet 2025
+ Date   : 13 Juillet 2025
  Info	: Module qui consiste à contrôler la liste de personnes
 */
 /******************************************************************************/
