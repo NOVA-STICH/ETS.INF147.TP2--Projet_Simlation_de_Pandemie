@@ -163,10 +163,9 @@ int main(void) {
 			// MODIFIER POUR VOIR LA PROPORTION DE LA POPULATION QUI EST EN QUARANTAINE:
 			// Si le NB d'heures écoulées est un multiple de 4, alors
 			// on affiche une barre du graphique pour la progression:
-			nb_en_quarantiane = get_nb_quarantaine(&liste_pers);
-			printf("NB de personne en quarantaine: %d \n", nb_en_quarantiane);
-
 			if ((nb_heure_simulation % 4) == 0) {
+				// Obtenir le nombre de personne qui sont en quarantaine:
+				nb_en_quarantiane = get_nb_quarantaine(&liste_pers);
 				// Calculer les malades qui ne sont pas en quarantaine
 				// Si nb_en_quarantiane > nb_malades, alors certains sains sont en quarantaine
 				int nb_malades_libres = nb_malades - nb_en_quarantiane;
