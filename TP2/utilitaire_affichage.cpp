@@ -105,7 +105,7 @@ void afficher_infos(int jours, int nb_morts, int nb_malades, int lemax)  {
 //  AFFICHER GRAPHE
 //******************************
 //Affiche le graphe qui indique l'état de la population
-// MODIFIER POUR AJOUTER UNE REPRESENTATION DES PERSONNE EN QUARANTAINE:
+// ======== MODIFIER POUR AJOUTER UNE REPRESENTATION DES PERSONNE EN QUARANTAINE ========
 void afficher_graphe(int pos, double prop_malades_libres, double prop_sante,
 	double prop_quarantaine) {
 
@@ -126,8 +126,14 @@ void afficher_graphe(int pos, double prop_malades_libres, double prop_sante,
 		prop_sante /= somme_proportions;
 		prop_quarantaine /= somme_proportions;
 	}
-
-	// Afficher de bas en haut : quarantaine (jaune), malades libres (rouge), sains (vert), morts (bleu)
+	
+	/*	EXEMPLE DE TYPE D'AFFICHAGE:
+	morts (bleu)
+	sains (vert)
+	malades libres (rouge)
+	quarantaine (jaune)
+	*/
+	
 	int y_current = posy;
 
 	// 1. Quarantaine (jaune) - en bas
