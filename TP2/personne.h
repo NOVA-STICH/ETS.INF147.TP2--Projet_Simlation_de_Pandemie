@@ -26,7 +26,7 @@
 /* constantes relatives aux probabilités de décès selon l'âge */
 #define AGE_JEUNE        29     //limite de la première tranche d'âge
 #define INC_CAT_AGE      10     //écart entre chaque tranche d'âge
-#define VITESSE          20      // Mutiplicateur de vitesse pour aller plus vite   :)
+#define VITESSE          2      // Mutiplicateur de vitesse pour aller plus vite   :)
 
 /* prob. de décès selon l'âge [0-29, 30-39, 40-49, 50-59, 60-69, 70-79, >=80] */
 const double PROB_DECES[7] = { 0.001, 0.001, 0.004, 0.017, 0.059, 0.182, 0.736 };
