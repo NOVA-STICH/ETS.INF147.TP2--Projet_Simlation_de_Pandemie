@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="./assets/INF147_Simulation_de_Pandemie.png" alt="Project Banner" width="800"/>
+  <img src="./assets/INF147_Simulation_de_Pandemie.PNG" alt="Project Banner" width="800"/>
 </div>
 ![Project Preview](./INF147_Simulation_de_Pandemie.png)
 
