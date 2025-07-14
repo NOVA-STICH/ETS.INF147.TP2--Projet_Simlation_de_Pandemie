@@ -1,1 +1,4 @@
-check the Document folder, it will containe a PDF. that is the work that needed to be done.
+Check the Document folder.
+It will containe a PDF.
+That is what needed to be done.
+Simple
