@@ -173,9 +173,9 @@ void imprimer_pers(t_liste_personnes* liste_pers) {
 
 		// Sélection de la couleur selon l'état de santé :
 		if (etat == EN_SANTE) couleur = GREEN;
-		else if ((etat == MALADE) && (quar == 0)) couleur = RED;
-		else if ((etat == MALADE) && (quar == 1)) couleur = BLUE;
-		else if (etat == MORT) couleur = YELLOW;
+		if (etat == MALADE) couleur = RED;
+		if (quar == 1) couleur = YELLOW;
+		if (etat == MORT) couleur = BLUE; // Pour pouvoir voir les cadavres hehehe
 
 		// affichage de la personne à l'écran :
 		afficher_cercle(round(px), round(py), couleur);
@@ -295,4 +295,20 @@ int get_nb_sante(const t_liste_personnes* liste_pers) {
 //Renvoie le nombre de personnes mortes
 int get_nb_morts(const t_liste_personnes* liste_pers) {
 	return liste_pers->nb_morts;
+}
+
+
+//===================== FONCTION EXTRA (car je peux) ======================
+// ======================================================================================
+//Renvoie le nombre de personnes en quarantaine:
+int get_nb_quarantaine(const t_liste_personnes* liste_pers) {
+	// Variables:
+	int nb_quarantine = 0;
+
+	// // Parcourir la liste et vérifier si la personne est en quarantaine:
+	for (int i = 0;i < liste_pers->nb_pers;i++) {
+		if (liste_pers->liste[i].quarantaine) nb_quarantine++;
+	}
+	// Retournera le nobre de personne compter dans la liste qui est en quarantaine:
+	return nb_quarantine;
 }

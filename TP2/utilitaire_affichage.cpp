@@ -105,7 +105,70 @@ void afficher_infos(int jours, int nb_morts, int nb_malades, int lemax)  {
 //  AFFICHER GRAPHE
 //******************************
 //Affiche le graphe qui indique l'état de la population
-void afficher_graphe(int pos, double prop_malades, double prop_sante){ 
+// MODIFIER POUR AJOUTER UNE REPRESENTATION DES PERSONNE EN QUARANTAINE:
+void afficher_graphe(int pos, double prop_malades_libres, double prop_sante,
+	double prop_quarantaine) {
+
+	int posy = MARGEGR + MAX_HAUT_GR,  // MARGEY + HAUTEUR + MAX_HAUT_GR + 5, 
+		posx = MARGEX + pos;
+
+	//setviewport(0, 0, getmaxx(), getmaxy(), 0);
+	setviewport(0, 0, getmaxx(), posy + 5, 0);
+
+	// Calculer la hauteur totale disponible
+	int hauteur_totale = MAX_HAUT_GR;
+
+	// S'assurer que la somme des proportions ne dépasse pas 1.0
+	double somme_proportions = prop_malades_libres + prop_sante + prop_quarantaine;
+	if (somme_proportions > 1.0) {
+		// Normaliser les proportions
+		prop_malades_libres /= somme_proportions;
+		prop_sante /= somme_proportions;
+		prop_quarantaine /= somme_proportions;
+	}
+
+	// Afficher de bas en haut : quarantaine (jaune), malades libres (rouge), sains (vert), morts (bleu)
+	int y_current = posy;
+
+	// 1. Quarantaine (jaune) - en bas
+	if (prop_quarantaine > 0) {
+		setcolor(COUL_QUARANTAINE);
+		int hauteur_quarantaine = (int)(prop_quarantaine * MAX_HAUT_GR);
+		line(posx, y_current, posx, y_current - hauteur_quarantaine);
+		y_current -= hauteur_quarantaine;
+	}
+
+	// 2. Malades libres (rouge) - au-dessus de la quarantaine
+	if (prop_malades_libres > 0) {
+		setcolor(COUL_MALADE);
+		int hauteur_malades = (int)(prop_malades_libres * MAX_HAUT_GR);
+		line(posx, y_current, posx, y_current - hauteur_malades);
+		y_current -= hauteur_malades;
+	}
+
+	// 3. Sains (vert) - au-dessus des malades
+	if (prop_sante > 0) {
+		setcolor(COUL_SANTE);
+		int hauteur_sante = (int)(prop_sante * MAX_HAUT_GR);
+		line(posx, y_current, posx, y_current - hauteur_sante);
+		y_current -= hauteur_sante;
+	}
+
+	// 4. Morts (bleu) - le reste jusqu'en haut
+	if (y_current > MARGEGR) {
+		setcolor(COUL_MORT);
+		line(posx, y_current, posx, MARGEGR);
+	}
+}
+	// CODE ORIGINEL:
+/*
+//******************************
+//  AFFICHER GRAPHE
+//******************************
+//Affiche le graphe qui indique l'état de la population
+void afficher_graphe(int pos, double prop_malades, double prop_sante,
+	double prop_quarantaine){
+
     int posy = MARGEGR + MAX_HAUT_GR,  // MARGEY + HAUTEUR + MAX_HAUT_GR + 5, 
 		posx = MARGEX + pos;
 
@@ -121,7 +184,8 @@ void afficher_graphe(int pos, double prop_malades, double prop_sante){
 	posy -= (int)(prop_sante * 100);
 	setcolor(COUL_MORT);
 	line(posx, posy, posx, MARGEGR);   
-}
+}	
+*/
 
 //******************************
 //  EFFACER ZONE ENVIRONNEMENT

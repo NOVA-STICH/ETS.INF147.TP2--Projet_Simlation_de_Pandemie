@@ -16,6 +16,10 @@
 #define  COUL_MALADE  RED
 #define  COUL_MORT    BLUE
 
+// =========== MODIFIER ================
+#define  COUL_QUARANTAINE    YELLOW // AJOUTER POUR OBSERVATION, c'est juste cool :0
+
+
 #define RAYON  5
 
 //Permet de travailler avec une fenêtre graphique de la dimension demandée.
@@ -30,7 +34,9 @@ void init_zone_environnement(int dimx, int dimy);
 void afficher_infos(int jours, int nb_morts, int nb_malades, int lemax);    
 
 //Affiche le graphe qui indique l'état de la population
-void afficher_graphe(int pos, double prop_malades, double prop_sante); 
+// MODIFIER POUR AJOUTER UNE REPRESENTATION DES PERSONNE EN QUARANTAINE:
+void afficher_graphe(int pos, double prop_malades, double prop_sante,
+	double prop_quarantaine);
 
 //Affiche un cercle à la position fournie de la couleur fournie
 void afficher_cercle(int col, int lig, int couleur); 

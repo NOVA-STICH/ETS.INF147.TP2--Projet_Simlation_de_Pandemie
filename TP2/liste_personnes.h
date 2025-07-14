@@ -14,8 +14,8 @@
 /*                      DÉCLARATIONS DES CONSTANTES                           */
 /******************************************************************************/
 
-#define FACTEUR 1 //facteur multiplicatif du nombre de personnes (1 à 5)
-
+#define FACTEUR 3 //facteur multiplicatif du nombre de personnes (1 à 5)
+#define MAX_PERS (300 * FACTEUR) // NB inital de personne
 /******************************************************************************/
 /*                         DÉCLARATIONS DE TYPES                              */
 /******************************************************************************/
@@ -117,3 +117,12 @@ int get_nb_sante(const t_liste_personnes* liste_pers);
    PARAMÈTRES : * liste_pers - pointeur sur une liste de personnes (t_liste_personnes).
    RETOUR : nombre de personnes mortes (int).    */
 int get_nb_morts(const t_liste_personnes* liste_pers);
+
+
+
+//===================== FONCTION EXTRA (car je peux) ======================
+/* GET_NB_QUARANTAINE
+   Reçoit une liste de personnes et retourne le nombre de personnes en Quarantaine.
+   PARAMÈTRES : * liste_pers - pointeur sur une liste de personnes (t_liste_personnes).
+   RETOUR : nombre de personnes en Quarantaine (int).    */
+int get_nb_quarantaine(const t_liste_personnes* liste_pers);
