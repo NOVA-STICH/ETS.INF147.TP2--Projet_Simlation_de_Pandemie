@@ -117,6 +117,7 @@ void afficher_graphe(int pos, double prop_malades_libres, double prop_sante,
 
 	// Calculer la hauteur totale disponible
 	int hauteur_totale = MAX_HAUT_GR;
+	int y_current = posy;
 
 	// S'assurer que la somme des proportions ne dépasse pas 1.0
 	double somme_proportions = prop_malades_libres + prop_sante + prop_quarantaine;
@@ -134,9 +135,7 @@ void afficher_graphe(int pos, double prop_malades_libres, double prop_sante,
 	quarantaine (jaune)
 	*/
 	
-	int y_current = posy;
-
-	// 1. Quarantaine (jaune) - en bas
+	// Quarantaine (jaune)
 	if (prop_quarantaine > 0) {
 		setcolor(COUL_QUARANTAINE);
 		int hauteur_quarantaine = (int)(prop_quarantaine * MAX_HAUT_GR);
@@ -144,7 +143,7 @@ void afficher_graphe(int pos, double prop_malades_libres, double prop_sante,
 		y_current -= hauteur_quarantaine;
 	}
 
-	// 2. Malades libres (rouge) - au-dessus de la quarantaine
+	// Malades libres (rouge)
 	if (prop_malades_libres > 0) {
 		setcolor(COUL_MALADE);
 		int hauteur_malades = (int)(prop_malades_libres * MAX_HAUT_GR);
@@ -152,7 +151,7 @@ void afficher_graphe(int pos, double prop_malades_libres, double prop_sante,
 		y_current -= hauteur_malades;
 	}
 
-	// 3. Sains (vert) - au-dessus des malades
+	// Sains (vert)
 	if (prop_sante > 0) {
 		setcolor(COUL_SANTE);
 		int hauteur_sante = (int)(prop_sante * MAX_HAUT_GR);
@@ -160,7 +159,7 @@ void afficher_graphe(int pos, double prop_malades_libres, double prop_sante,
 		y_current -= hauteur_sante;
 	}
 
-	// 4. Morts (bleu) - le reste jusqu'en haut
+	// Morts (bleu)
 	if (y_current > MARGEGR) {
 		setcolor(COUL_MORT);
 		line(posx, y_current, posx, MARGEGR);

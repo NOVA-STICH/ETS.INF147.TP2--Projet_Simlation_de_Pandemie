@@ -2,7 +2,7 @@
 /*  UTILITAIRE_AFFICHAGE.H    (module donné aux élèves)                       */
 /*  Module utilitaire qui permet d'afficher les cases d'une grille en mode    */
 /*  graphique avec le module graphique "winBGim.h".                           */
-/*                                                                            */
+/*  Modifier par Maxime Nebili - 13 juillet 2025 (ajout affichage quarantaine)*/
 /*  Conception : Eric Thé                                                     */
 /******************************************************************************/
 
