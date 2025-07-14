@@ -29,7 +29,7 @@
 #define LARGEUR (int)( 1200 * sqrt(0.8 * FACTEUR))		// default: 1200
 
 #define NB_JOURS_SIMULATION 200 // Le NB de jours à simuler pour le log file
-#define DELAY 30 // Le delay d'affiche à l'écran
+#define DELAY 1 // Le delay d'affiche à l'écran
 #define NOM_FICHIER	"logfile.txt" // Le nom du fichier créé
 
 // Macro pour que le système ne plante pas à l'insertion de texte:
